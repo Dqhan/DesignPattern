@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>设计模式</title>
+</head>
+
+<body>
+    <!-- 测试demo页面 -->
+   // <!-- 程序员a写界面 -->
+    <button id="refresh">refresh</button>
+    <button id="add">add</button>
+    <button id="del">delete</button>
+    <script type="text/javascript">
+        var Cat = function () {
+            this.eatNumber = 0
+        }
+        Cat.prototype.eat = function (num) {
+            this.eatNumber = num;
+            middle(this);
+        }
+
+        var Dog = function (cat, pig) {
+            this.eatNumber = 0
+        }
+        Dog.prototype.eat = function (num, cat, pig) {
+            this.eatNumber = num;
+            middle(this);
+        }
+        var Pig = function () {
+            this.eatNumber = 0
+        }
+
+        Pig.prototype.eat = function (num, dog, cat) {
+            this.eatNumber = num;
+            middle(this);
+        }
+
+        var middle = (function () {
+            var pool = [];
+            return function (target) {
+                pool.push(target.eatNumber);
+                pool.sort(function (pre, next) {
+                    return next - pre;
+                })
+                console.log('当前排名:' + pool.indexOf(target.eatNumber) + 1);
+            }
+        })()
+
+        var cat = new Cat();
+        var dog = new Dog();
+        var pig = new Pig();
+        cat.eat(20, dog, pig);
+        dog.eat(50, cat, pig);
+        pig.eat(100, cat, dog);
+
+    </script>
+</body>
+
+</html>
